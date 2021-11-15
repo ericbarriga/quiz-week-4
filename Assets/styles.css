@@ -69,7 +69,7 @@ body.correct {
 
 }
 
-.startBtn, .nextBtn {
+.start-btn, .next-btn {
     font-size: 2rem;
     font-weight: bolder;
     padding: 10px;
@@ -85,3 +85,13 @@ body.correct {
     display: none;
     
 }
+
+.countDown {
+    display: grid;
+    grid-auto-columns: 60px;
+    grid-gap: 10px;
+    background-color: #2196F3;
+    padding: 10px;
+}
+
+    
