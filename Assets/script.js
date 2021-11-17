@@ -14,11 +14,11 @@ nextButton.addEventListener('click', () => {
 
 
 function startGame() {
-startButton.classList.add('hide')
-shuffledQestions = questions.sort(() => Math.random() - .5)
-currentQuestionIndex = 0
-questionContainerElement.classList.remove('hide')
-setNextQuestion()
+    startButton.classList.add('hide')
+    shuffledQestions = questions.sort(() => Math.random() - .5)
+    currentQuestionIndex = 0
+    questionContainerElement.classList.remove('hide')
+    setNextQuestion()
 
 }
 
@@ -34,7 +34,7 @@ function showQuestion(question) {
         const button = document.createElement('button')
         button.innerText = answer.text
         button.classList.add('btn')
-        if (answer.correct){
+        if (answer.correct) {
             button.dataset.correct = answer.correct
         }
         button.addEventListener('click', selectAnswer)
@@ -43,12 +43,12 @@ function showQuestion(question) {
 }
 
 
-function resetState(){
+function resetState() {
     clearStatusClass(document.body)
     nextButton.classList.add('hide')
     while (answerButtonsElement.firstChild) {
         answerButtonsElement.removeChild
-        (answerButtonsElement.firstChild)
+            (answerButtonsElement.firstChild)
     }
 }
 
@@ -61,7 +61,7 @@ function selectAnswer(e) {
         setStatusClass(button, button.dataset.correct)
     })
     if (shuffledQestions.lenght > currentQuestionIndex + 1) {
-    nextButton.classList.remove('hide')
+        nextButton.classList.remove('hide')
     } else {
         startButton.innerText = 'restart'
         startButton.classList.remove('hide')
@@ -71,13 +71,13 @@ function selectAnswer(e) {
 
 
 function setStatusClass(element, correct) {
-    clearStatusClass(element) 
-        if (correct) {
+    clearStatusClass(element)
+    if (correct) {
         element.classList.add('correct')
-        } else {
-            element.classList.add('wrong')
-        }
+    } else {
+        element.classList.add('wrong')
     }
+}
 
 
 function clearStatusClass(element) {
@@ -91,61 +91,69 @@ const questions = [
     {
         question: 'Question',
         answer: [
-            {text: '4', correct: true},
-            {text: '5', correct: false}
-    ]
-},
-{       question: 'placeholder2',
-        answer: [
-            {text: '1', correct: true},
-            {text: '1', correct: true},
-            {text: '1', correct: true},
-            {text: '1', correct: true},
+            { text: '4', correct: true },
+            { text: '5', correct: false }
         ]
-},
-{       question: 'placeholder3',
+    },
+    {
+        question: 'placeholder2',
         answer: [
-            {text: '1', correct: true},
-            {text: '1', correct: true},
-            {text: '1', correct: true},
-            {text: '1', correct: true},
+            { text: '1', correct: true },
+            { text: '1', correct: true },
+            { text: '1', correct: true },
+            { text: '1', correct: true },
         ]
-        },
-
-        {       question: 'placeholder3',
+    },
+    {
+        question: 'placeholder3',
         answer: [
-            {text: '1', correct: true},
-            {text: '1', correct: true},
-            {text: '1', correct: true},
-            {text: '1', correct: true},
+            { text: '1', correct: true },
+            { text: '1', correct: true },
+            { text: '1', correct: true },
+            { text: '1', correct: true },
         ]
-        },
+    },
 
-        {       question: 'placeholder4',
+    {
+        question: 'placeholder3',
         answer: [
-            {text: '1', correct: true},
-            {text: '1', correct: true},
-            {text: '1', correct: true},
-            {text: '1', correct: true},
+            { text: '1', correct: true },
+            { text: '1', correct: true },
+            { text: '1', correct: true },
+            { text: '1', correct: true },
         ]
-        },
-    ]
+    },
+
+    {
+        question: 'placeholder4',
+        answer: [
+            { text: '1', correct: true },
+            { text: '1', correct: true },
+            { text: '1', correct: true },
+            { text: '1', correct: true },
+        ]
+    },
+]
 
 
-    const startingMinutes = 3;
-    let time = startingMinutes * 60;
+const startingMinutes = 3;
+let time = startingMinutes * 60;
 
-    const countDownEL = document .getElementById('countDown');
+const countDownEL = document.getElementById('countDown');
+var timeInterval = setInterval(updateCountDown, 1000);
 
-    setInterval( updateCountDown, 1000);
+function updateCountDown() {
+    const minutes = Math.floor(time / 60);
+    let secounds = time % 60;
 
-    function updateCountDown(){
-        const minutes = Math.floor(time / 60);
-        let secounds = time % 60 ;
+    countDownEL.innerText = `${minutes}: ${secounds}`;
+    time--;
 
-        countDownEL.innerText = `${minutes}: ${secounds}`;
-        time--;
+    if (time === 0) {
+        time--; clearInterval(timeInterval);
+
     }
+}
 
 
 
