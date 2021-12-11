@@ -3,8 +3,11 @@ const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
+const scoreSpan = document.querySelector('.score')
 
 let shuffledQuestions, currentQuestionIndex
+let score = 0;
+let countDown;
 
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
@@ -17,7 +20,7 @@ function startGame() {
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
-    const countDown = setInterval(() => {
+    countDown = setInterval(() => {
         timeSec--;
         displayTime(timeSec)
         if (timeSec <= 0 || timeSec < 1) {
@@ -50,14 +53,27 @@ function showQuestion(question) {
 function resetState() {
     clearStatusClass(document.body)
     nextButton.classList.add('hide')
+    document.querySelector('.scoreContainer').classList.add("hide")
     while (answerButtonsElement.firstChild) {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
+    score = 0;
 }
 
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
+    if (!correct) {
+        // timeSec = timeSec - 5;
+        // decrease timeSec by 5 seconds
+        timeSec -= 5;
+        displayTime(timeSec);
+    } else {
+        //increase score by one 
+        score += 1;
+        // score = score + 1;
+        // score++
+    }
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
@@ -67,7 +83,16 @@ function selectAnswer(e) {
     } else {
         startButton.innerText = 'Restart'
         startButton.classList.remove('hide')
+        clearInterval(countDown);
+        displayscore()
     }
+
+}
+
+function displayscore() {
+
+    scoreSpan.innerText = score + '/' + shuffledQuestions.length
+    document.querySelector('.scoreContainer').classList.toggle("hide")
 }
 
 function setStatusClass(element, correct) {
